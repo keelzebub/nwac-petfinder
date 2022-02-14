@@ -197,7 +197,7 @@ window.replaceShow = async (animal) => {
     const thumbnailButton = document.createElement('button');
     thumbnailButton.style = 'background: transparent; border: none;';
     console.log('largeImages[index]', largeImages[index]);
-    thumbnailButton.onclick = window.replaceMainPetImage(mainImage, largeImages[index]);
+    thumbnailButton.onclick = window.replaceMainPetImage.bind(null, mainImage, largeImages[index]);
     thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
 
     imageGallery.appendChild(thumbnailButton);
