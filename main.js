@@ -166,14 +166,13 @@ window.replaceShow = async (animal) => {
   const forMoreInfo = document.createElement('p');
   forMoreInfo.className = 'preFade fadeIn';
   forMoreInfo.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  forMoreInfo.innerHTML = `For full description, please visit the <a target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`
+  forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`
   rightContainer.appendChild(forMoreInfo);
 
 
   // Update the images
   const mainImage = document.createElement('img');
   mainImage.src = largeImages[0].replace(/600$/, '500');
-  mainImage.dataset['image-focal-point'] = '0.5,0.5';
   mainImage.alt = `Primary image of ${animal.name}`;
   leftContainer.appendChild(mainImage);
 
