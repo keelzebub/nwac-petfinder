@@ -1,7 +1,7 @@
 //
 // Get query params
 //
-const getQueryParams = () => {
+window.getQueryParams = () => {
   const queryString = window.location.search.substring(1);
   const queryParams = {};
   queryString.split('&').forEach((querySet) => {
@@ -99,11 +99,53 @@ window.replaceIndex = async (animals) => {
 // Replace show page content
 //
 window.replaceShow = async (animal) => {
+  const smallImages = [];
+  const largeImages = [];
 
-  // get the petfinder_id from the query string
-  const queryParams = getQueryParams();
-  if (queryParams.petfinder_id === undefined) {
-    return;
+  animal.photos.forEach((photo) => {
+    smallImages.push(photo.small);
+    largeImages.push(photo.large);
+  });
+
+  const mainImageContainer = document.getElementsByClassName('sqs-image-shape-container-element')[0];
+  const descriptionContainer = document.getElementsByClassName('sqs-block-content')[2];
+
+  const mainImage = `
+    <img class="thumb-image loaded" data-src="${largeImages[0]}" data-image="${largeImages[0]}" data-image-focal-point="0.5,0.5" alt="" data-load="false" data-type="image" src="${largeImages[0]}">
+  `;
+
+  let environment = [];
+  for (const key in animal.environment) {
+    if (animal.environment[key]) {
+      environment.push(key);
+    }
   }
+  environment = environment.length > 0 ? environment.join(', ') : 'N/A';
 
+  const description = `
+    <h3 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.253333s;" class="preFade fadeIn">
+      ${animal.name}
+    </h3>
+    <p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;">
+      ${animal.age} ${animal.gender} ${animal.breeds.primary} ${animal.primary}${animal.secondary ? ', ' + animal.secondary : ''}
+      <br>
+      Coat length: ${animal.coat}
+      <br>
+      House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}
+      <br>
+      Vaccinations up to date: ${animal.attributes.shots_current ? 'Yes' : 'No'}
+      <br>
+      Spayed / neutered: ${animal.attributes.spayed_neutered ? 'Yes' : 'No'}
+      <br>
+      Good in a home with: ${environment}
+    </p>
+    <p class="sqsrte-small preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.28s;">
+      ${animal.description}
+      <br>
+      For full description, please visit the <a target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!
+    </p>
+  `;
+
+  mainImageContainer.innerHTML = mainImage;
+  descriptionContainer.innerHTML = description;
 };
