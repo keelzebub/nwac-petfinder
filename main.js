@@ -76,20 +76,24 @@ window.loadAnimal = async (petfinderId, petfinderSecret) => {
 // Replace index page content
 //
 window.replaceIndex = async (animals) => {
-  const animalHtmlBlocks = animals.map((animal) => (
-  `
-    <a class='grid-item' href='/pets/show?petfinder_id=${animal.id}'>
-      <div class='grid-image'>
-        <div class='grid-image-inner-wrapper'>
-            <img data-src='${animal.primary_photo_cropped.small}' data-image='${animal.primary_photo_cropped.small}' data-image-dimensions='300x400' data-image-focal-point='0.5,0.5' alt='${animal.name}  |  ${animal.age}' data-load='false' data-parent-ratio='1.0' class=' data-image-resolution='750w' src='${animal.primary_photo_cropped.small}' style='width: 100%; height: 100%; object-position: 50% 50%; object-fit: cover;' />
-        </div>
-      </div>
-      <div class='portfolio-text'>
-        <h3 class='portfolio-title preFade fadeIn' style='transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.285714s;'>${animal.name}  |  ${animal.age}</h3>
-      </div>
-    </a>
-  `
-  ));
+  const animalHtmlBlocks = animals.map((animal) => {
+    let age = animal.age === 'Baby' && animal.type === 'cat' ? 'Kitten' : animal.age;
+    age = animal.age === 'Baby' && animal.type === 'dog' ? 'Puppy' : age;
+    return (
+      `
+        <a class='grid-item' href='/pets/show?petfinder_id=${animal.id}'>
+          <div class='grid-image'>
+            <div class='grid-image-inner-wrapper'>
+                <img data-src='${animal.primary_photo_cropped.small}' data-image='${animal.primary_photo_cropped.small}' data-image-dimensions='300x400' data-image-focal-point='0.5,0.5' alt='${animal.name}  |  ${age}' data-load='false' data-parent-ratio='1.0' class=' data-image-resolution='750w' src='${animal.primary_photo_cropped.small}' style='width: 100%; height: 100%; object-position: 50% 50%; object-fit: cover;' />
+            </div>
+          </div>
+          <div class='portfolio-text'>
+            <h3 class='portfolio-title preFade fadeIn' style='transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.285714s;'>${animal.name}  |  ${age}</h3>
+          </div>
+        </a>
+      `
+    );
+  });
 
   const gridContainer = document.getElementById('gridThumbs');
   gridContainer.innerHTML = animalHtmlBlocks.join('');
@@ -150,8 +154,8 @@ window.replaceShow = async (animal) => {
   name.innerText = animal.name;
   rightInnerContainer.appendChild(name);
 
-  let age = animal.age === 'Baby' && type === 'cat' ? 'Kitten' : animal.age;
-  age = animal.age === 'Baby' && type === 'dog' ? 'Puppy' : age;
+  let age = animal.age === 'Baby' && animal.type === 'cat' ? 'Kitten' : animal.age;
+  age = animal.age === 'Baby' && animal.type === 'dog' ? 'Puppy' : age;
 
   const detailsContent = [
     `${age} ${animal.gender} ${animal.breeds.primary}`,
