@@ -99,6 +99,8 @@ window.replaceIndex = async (animals) => {
 // Replace the main pet image
 //
 window.replaceMainPetImage = async (mainImage, imageUrl) => {
+  console.log('mainImage', mainImage);
+  console.log('imageUrl', imageUrl);
   mainImage.src = imageUrl;
 };
 
@@ -117,17 +119,23 @@ window.replaceShow = async (animal) => {
   const mainContainer = document.getElementsByClassName('sqs-row')[0];
   mainContainer.style = 'display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;'
   mainContainer.className += ' custom-row';
+  mainContainer.innerHTML = '';
 
   const leftContainer = document.createElement('div');
-  leftContainer.className = 'col sqs-col-5 span-5';
+  leftContainer.className = 'col sqs-col-6 span-6';
   leftContainer.style = 'float: none; padding: 0 17px;';
 
-  const rightContainer = document.createElement('div');
-  rightContainer.className = 'col sqs-col-5 span-5';
-  rightContainer.style = 'float: none; padding: 0 17px;';
+  const rightOuterContainer = document.createElement('div');
+  rightOuterContainer.className = 'col sqs-col-5 span-5';
+  rightOuterContainer.style = 'float: none;';
+
+  rightInnerContainer = document.createElement('div');
+  rightInnerContainer.className = 'sqs-block html-block sqs-block-html';
+  rightOuterContainer.appendChild(rightInnerContainer);
+
 
   mainContainer.appendChild(leftContainer);
-  mainContainer.appendChild(rightContainer);
+  mainContainer.appendChild(rightOuterContainer);
 
   // Update the animal description
   let getsAlongWith = [];
@@ -142,7 +150,7 @@ window.replaceShow = async (animal) => {
   name.className = 'preFade fadeIn';
   name.style = 'margin-top: 0px;';
   name.innerText = animal.name;
-  rightContainer.appendChild(name);
+  rightInnerContainer.appendChild(name);
 
   const detailsContent = [
     `${animal.age} ${animal.gender} ${animal.breeds.primary}`,
@@ -158,19 +166,19 @@ window.replaceShow = async (animal) => {
   details.className = 'preFade fadeIn';
   details.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   details.innerText = detailsContent.join("\n");
-  rightContainer.appendChild(details);
+  rightInnerContainer.appendChild(details);
 
   const description = document.createElement('p');
   description.className = 'preFade fadeIn';
   description.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   description.innerText = `${animal.description}`
-  rightContainer.appendChild(description);
+  rightInnerContainer.appendChild(description);
 
   const forMoreInfo = document.createElement('p');
   forMoreInfo.className = 'preFade fadeIn';
   forMoreInfo.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`
-  rightContainer.appendChild(forMoreInfo);
+  rightInnerContainer.appendChild(forMoreInfo);
 
   // Update the images
   const mainImage = document.createElement('img');
@@ -185,8 +193,10 @@ window.replaceShow = async (animal) => {
   leftContainer.appendChild(imageGallery);
 
   smallImages.forEach((url, index) => {
+    console.log('index', index);
     const thumbnailButton = document.createElement('button');
     thumbnailButton.style = 'background: transparent; border: none;';
+    console.log('largeImages[index]', largeImages[index]);
     thumbnailButton.onclick = window.replaceMainPetImage(mainImage, largeImages[index]);
     thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
 
