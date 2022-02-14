@@ -116,15 +116,24 @@ window.replaceShow = async (animal) => {
 
   const mainContainer = document.getElementsByClassName('sqs-row')[0];
 
-  const leftContainer =  document.createElement('div');
+  const leftContainer = document.createElement('div');
   leftContainer.className = 'col sqs-col-6 span-6';
   leftContainer.style = 'padding: 0 17px';
 
+  const middleContainer = document.createElement('div');
+  middleContainer.className = 'col sqs-col-1 span-1';
+  middleContainer.innerHTML = `
+    <div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21">
+      <div class="sqs-block-content">&nbsp;</div>
+    </div>
+  `;
+
   const rightContainer = document.createElement('div');
-  rightContainer.className = 'col sqs-col-6 span-6';
-  rightContainer.style = 'padding: 0 17px 0 108px;';
+  rightContainer.className = 'col sqs-col-5 span-5';
+  rightContainer.style = 'padding: 0 17px;';
 
   mainContainer.appendChild(leftContainer);
+  mainContainer.appendChild(middleContainer);
   mainContainer.appendChild(rightContainer);
 
   // Update the animal description
@@ -138,6 +147,7 @@ window.replaceShow = async (animal) => {
 
   const name = document.createElement('h3');
   name.className = 'preFade fadeIn';
+  name.style = 'margin-top: 0px;';
   name.innerText = animal.name;
   rightContainer.appendChild(name);
 
@@ -169,11 +179,11 @@ window.replaceShow = async (animal) => {
   forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`
   rightContainer.appendChild(forMoreInfo);
 
-
   // Update the images
   const mainImage = document.createElement('img');
   mainImage.src = largeImages[0].replace(/600$/, '500');
-  mainImage.alt = `Primary image of ${animal.name}`;
+  mainImage.alt = `${animal.name}`;
+  mainImage.style = 'width: 100%;';
   leftContainer.appendChild(mainImage);
 
   const imageGallery = document.createElement('div');
@@ -184,7 +194,7 @@ window.replaceShow = async (animal) => {
   smallImages.forEach((url, index) => {
     const thumbnailButton = document.createElement('button');
     thumbnailButton.style = 'background: transparent; border: none;';
-    thumbnailButton.onClick = window.replaceMainPetImage(mainImage, largeImages[index]);
+    thumbnailButton.onclick = window.replaceMainPetImage(mainImage, largeImages[index]);
     thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
 
     imageGallery.appendChild(thumbnailButton);
