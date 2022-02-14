@@ -153,18 +153,17 @@ For full description, please visit the <a target='_blank' rel='noopener noreferr
 
   const imageContainer = document.getElementsByClassName('sqs-block-content')[0];
 
-  const imageGallery = '<div id="customGallery" style="margin-top: 12px;"></div>';
-  const imageThumbnails = smallImages.map((url, index) => (
-    `
-    <button class='customGallery-image' style='background: transparent; border: none;'>
-      <img data-id='${index}' src="${url}">
-    </button>
-    `
-  ));
+  const imageGallery = document.createElement('div');
+  imageGallery.style = 'margin-top: 12px;';
 
   imageContainer.appendChild(imageGallery);
-  const imageGallery = document.getElementById('customGallery');
 
-  imageGallery.innerHTML = imageThumbnails.join('');
+  const imageThumbnails = smallImages.forEach((url, index) => {
+    const thumbnailButton = document.createElement('button');
+    thumbnailButton.style = 'background: transparent; border: none;';
+    thumbnailButton.onClick = window.replaceMainPetImage(largeImages[index]);
+    thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
 
+    imageGallery.appendChild(thumbnailButton);
+  });
 };
