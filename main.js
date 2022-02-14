@@ -96,6 +96,16 @@ window.replaceIndex = async (animals) => {
 };
 
 //
+// Replace the main pet image
+//
+window.replaceMainPetImage = async (url) => {
+  const mainImageContainer = document.getElementsByClassName('sqs-image-shape-container-element')[0];
+  const mainImage = `
+    <img class="thumb-image loaded" data-src="${url}" data-image="${url}" data-image-focal-point="0.5,0.5" alt="" data-load="false" data-type="image" src="${url}">
+  `;
+};
+
+//
 // Replace show page content
 //
 window.replaceShow = async (animal) => {
@@ -107,45 +117,54 @@ window.replaceShow = async (animal) => {
     largeImages.push(photo.large);
   });
 
-  const mainImageContainer = document.getElementsByClassName('sqs-image-shape-container-element')[0];
-  const descriptionContainer = document.getElementsByClassName('sqs-block-content')[2];
 
-  const mainImage = `
-    <img class="thumb-image loaded" data-src="${largeImages[0]}" data-image="${largeImages[0]}" data-image-focal-point="0.5,0.5" alt="" data-load="false" data-type="image" src="${largeImages[0]}">
-  `;
-
-  let environment = [];
+  // Update the animal description
+  let getsAlongWith = [];
   for (const key in animal.environment) {
     if (animal.environment[key]) {
-      environment.push(key);
+      getsAlongWith.push(key);
     }
   }
-  environment = environment.length > 0 ? environment.join(', ') : 'N/A';
+  getsAlongWith = getsAlongWith.length > 0 ? getsAlongWith.join(', ') : 'N/A';
 
+
+  const descriptionContainer = document.getElementsByClassName('sqs-block-content')[2];
   const description = `
-    <h3 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.253333s;" class="preFade fadeIn">
-      ${animal.name}
-    </h3>
-    <p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;">
-      ${animal.age} ${animal.gender} ${animal.breeds.primary} ${animal.primary}${animal.secondary ? ', ' + animal.secondary : ''}
-      <br>
-      Coat length: ${animal.coat}
-      <br>
-      House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}
-      <br>
-      Vaccinations up to date: ${animal.attributes.shots_current ? 'Yes' : 'No'}
-      <br>
-      Spayed / neutered: ${animal.attributes.spayed_neutered ? 'Yes' : 'No'}
-      <br>
-      Good in a home with: ${environment}
-    </p>
-    <p class="sqsrte-small preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.28s;">
-      ${animal.description}
-      <br>
-      For full description, please visit the <a target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!
-    </p>
+<h3 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.253333s;" class="preFade fadeIn">${animal.name}</h3>
+<p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;">
+  ${animal.age} ${animal.gender} ${animal.breeds.primary} ${animal.colors.primary}${animal.colors.secondary ? ', ' + animal.colors.secondary : ''}
+Coat length: ${animal.coat}
+House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}
+Vaccinations up to date: ${animal.attributes.shots_current ? 'Yes' : 'No'}
+Spayed / neutered: ${animal.attributes.spayed_neutered ? 'Yes' : 'No'}
+Good in a home with: ${getsAlongWith}
+</p>
+<p class="sqsrte-small preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.28s;">
+${animal.description}
+For full description, please visit the <a target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!
+</p>
   `;
 
-  mainImageContainer.innerHTML = mainImage;
   descriptionContainer.innerHTML = description;
+
+
+  // Update the images
+  window.replaceMainPetImage(largeImages[0]);
+
+  const imageContainer = document.getElementsByClassName('sqs-block-content')[0];
+
+  const imageGallery = '<div id="customGallery" style="margin-top: 12px;"></div>';
+  const imageThumbnails = smallImages.map((url, index) => (
+    `
+    <button class='customGallery-image' style='background: transparent; border: none;'>
+      <img data-id='${index}' src="${url}">
+    </button>
+    `
+  ));
+
+  imageContainer.appendChild(imageGallery);
+  const imageGallery = document.getElementById('customGallery');
+
+  imageGallery.innerHTML = imageThumbnails.join('');
+
 };
