@@ -1,0 +1,92 @@
+<script>
+  document.addEventListener("DOMContentLoaded", async function(_e) {
+    const loadAnimal = async (petfinderId) => {
+      const tokenResponse = await fetch('https://api.petfinder.com/v2/oauth2/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          grant_type: 'client_credentials',
+          client_id: 'yJoHg3LOjzA3nsuYuLfH9gmhxs8PUqFPFePQO4BagL9ZgPO3dN',
+          client_secret: 'NmPG0aIFUZsUMcqwI2EllXAQGrtdVkj1MERVnOUm'
+        }),
+      });
+
+      const token = (await tokenResponse.json()).access_token;
+
+      const animalResponse = await fetch(`https://api.petfinder.com/v2/animals/${petfinderId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
+
+      return (await animalResponse.json()).animal;
+    };
+
+    const queryString = window.location.search.substring(1);
+    const queryParams = {};
+    queryString.split('&').forEach((querySet) => {
+      if (querySet.length > 2) {
+        const [name, value] = querySet.split('=');
+        queryParams[name] = value;
+      }
+    });
+
+    if (queryParams.petfinder_id === undefined) {
+      return;
+    }
+
+    const animal = await loadAnimal(queryParams.petfinder_id);
+    const smallImages = [];
+    const largeImages = [];
+
+    animal.photos.forEach((photo) => {
+      smallImages.push(photo.small);
+      largeImages.push(photo.large);
+    });
+
+    const mainImageContainer = document.getElementsByClassName('sqs-image-shape-container-element')[0];
+    const descriptionContainer = document.getElementsByClassName('sqs-block-content')[0];
+
+    const mainImage = `
+    <img class="thumb-image loaded" data-src="${largeImages[0]}" data-image="${largeImages[0]}" data-image-focal-point="0.5,0.5" alt="" data-load="false" data-type="image" src="${largeImages[0]}">
+    `;
+
+    let environment = [];
+    for (const key in animal.environment) {
+      if (animal.environment[key]) {
+        environment.push(key);
+      }
+    }
+    environment = environment.length > 0 ? environment.join(', ') : 'N/A';
+
+    const description = `
+    <h3 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.253333s;" class="preFade fadeIn">
+      ${animal.name}
+    </h3>
+    <p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;">
+      ${animal.age} ${animal.gender} ${animal.breeds.primary} ${animal.primary}${animal.secondary ? ', ' + animal.secondary : ''}
+      <br>
+      Coat length: ${animal.coat}
+      <br>
+      House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}
+      <br>
+      Vaccinations up to date: ${animal.attributes.shots_current ? 'Yes' : 'No'}
+      <br>
+      Spayed / neutered: ${animal.attributes.spayed_neutered ? 'Yes' : 'No'}
+      <br>
+      Good in a home with: ${environment}
+    </p>
+    <p class="sqsrte-small preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.28s;">
+      ${animal.description}
+    </p>
+    `;
+
+    mainImageContainer.innerHTML = mainImage;
+    descriptionContainer.innerHTML = description;
+  });
+
+</script>
