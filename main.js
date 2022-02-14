@@ -18,7 +18,7 @@ const getQueryParams = () => {
 //
 // Load all animal of a type
 //
-const loadAnimals = async (animalType, petfinderSecret) => {
+window.loadAnimals = async (animalType, petfinderSecret) => {
   const tokenResponse = await fetch('https://api.petfinder.com/v2/oauth2/token', {
     method: 'POST',
     headers: {
@@ -47,7 +47,7 @@ const loadAnimals = async (animalType, petfinderSecret) => {
 //
 // Load data for one animal
 //
-const loadAnimal = async (petfinderId) => {
+window.loadAnimal = async (petfinderId) => {
   const tokenResponse = await fetch('https://api.petfinder.com/v2/oauth2/token', {
     method: 'POST',
     headers: {
@@ -76,7 +76,7 @@ const loadAnimal = async (petfinderId) => {
 //
 // Replace index page content
 //
-const replaceIndex = async (animals) => {
+window.replaceIndex = async (animals) => {
   const animalHtmlBlocks = animals.map((animal) => (
   `
     <a class='grid-item' href='/pets/show?petfinder_id=${animal.id}'>
@@ -99,7 +99,7 @@ const replaceIndex = async (animals) => {
 //
 // Replace show page content
 //
-const replaceShow = async (animal) => {
+window.replaceShow = async (animal) => {
 
   // get the petfinder_id from the query string
   const queryParams = getQueryParams();
