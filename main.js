@@ -213,7 +213,9 @@ window.replaceShow = async (animal) => {
     imageGallery.appendChild(thumbnailButton);
   });
 
-  mainContainer.className += ' fadeIn';
+  setTimeout(() => {
+    mainContainer.className += ' fadeIn';
+  }, 400);
 
   document.querySelector('style').textContent +=
     "@media screen and (max-width: 767px) { .custom-row { justify-content: flex-start !important; } }"
