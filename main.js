@@ -99,7 +99,7 @@ window.replaceIndex = async (animals) => {
 // Replace the main pet image
 //
 window.replaceMainPetImage = async (mainImage, imageUrl) => {
-  mainImage.src = imageUrl.replace(/600$/, '500');
+  mainImage.src = imageUrl;
 };
 
 //
@@ -127,7 +127,6 @@ window.replaceShow = async (animal) => {
   rightContainer.style = 'float: none; padding: 0 17px;';
 
   mainContainer.appendChild(leftContainer);
-  mainContainer.appendChild(middleContainer);
   mainContainer.appendChild(rightContainer);
 
   // Update the animal description
@@ -175,7 +174,7 @@ window.replaceShow = async (animal) => {
 
   // Update the images
   const mainImage = document.createElement('img');
-  mainImage.src = largeImages[0].replace(/600$/, '500');
+  mainImage.src = largeImages[0];
   mainImage.alt = `${animal.name}`;
   mainImage.style = 'width: calc(100% - 34px);';
   leftContainer.appendChild(mainImage);
