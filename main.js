@@ -162,7 +162,8 @@ window.replaceShow = async (animal) => {
   }
 
   const detailsContent = [
-    `${animal.gender} ${animal.breeds.primary} ${age}`,
+    `${animal.gender} ${age}`,
+    `Breed: ${animal.breeds.primary}`,
     `Color: ${animal.colors.primary}${animal.colors.secondary ? ', ' + animal.colors.secondary : ''}`,
     `Coat length: ${animal.coat}`,
     `House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}`,
@@ -186,7 +187,7 @@ window.replaceShow = async (animal) => {
   const forMoreInfo = document.createElement('p');
   forMoreInfo.className = 'preFade fadeIn';
   forMoreInfo.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`
+  forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`;
   rightInnerContainer.appendChild(forMoreInfo);
 
   // Update the images
