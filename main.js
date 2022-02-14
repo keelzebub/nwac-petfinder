@@ -99,8 +99,6 @@ window.replaceIndex = async (animals) => {
 // Replace the main pet image
 //
 window.replaceMainPetImage = async (mainImage, imageUrl) => {
-  console.log('mainImage', mainImage);
-  console.log('imageUrl', imageUrl);
   mainImage.src = imageUrl;
 };
 
@@ -152,8 +150,11 @@ window.replaceShow = async (animal) => {
   name.innerText = animal.name;
   rightInnerContainer.appendChild(name);
 
+  let age = animal.age === 'Baby' && type === 'cat' ? 'Kitten' : animal.age;
+  age = animal.age === 'Baby' && type === 'dog' ? 'Puppy' : age;
+
   const detailsContent = [
-    `${animal.age} ${animal.gender} ${animal.breeds.primary}`,
+    `${age} ${animal.gender} ${animal.breeds.primary}`,
     `Color: ${animal.colors.primary}${animal.colors.secondary ? ', ' + animal.colors.secondary : ''}`,
     `Coat length: ${animal.coat}`,
     `House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}`,
@@ -193,10 +194,8 @@ window.replaceShow = async (animal) => {
   leftContainer.appendChild(imageGallery);
 
   smallImages.forEach((url, index) => {
-    console.log('index', index);
     const thumbnailButton = document.createElement('button');
     thumbnailButton.style = 'background: transparent; border: none;';
-    console.log('largeImages[index]', largeImages[index]);
     thumbnailButton.onclick = window.replaceMainPetImage.bind(null, mainImage, largeImages[index]);
     thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
 
