@@ -181,14 +181,20 @@ window.replaceShow = async (animal) => {
   const description = document.createElement('p');
   description.className = 'preFade fadeIn';
   description.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  description.innerText = `${animal.description}`
+  description.innerHTML = `${animal.description} (<a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Full description here</a>.)`
   rightInnerContainer.appendChild(description);
 
-  const forMoreInfo = document.createElement('p');
-  forMoreInfo.className = 'preFade fadeIn';
-  forMoreInfo.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  forMoreInfo.innerHTML = `For full description, please visit the <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='${animal.url}'>Petfinder page for ${animal.name}</a>!`;
-  rightInnerContainer.appendChild(forMoreInfo);
+  const adoptionProcess = document.createElement('p');
+  adoptionProcess.className = 'preFade fadeIn';
+  adoptionProcess.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
+  adoptionProcess.innerHTML = `Learn more about Northwest Animal Companions' <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='/adoption-process'>adoption process here</a>.`;
+  rightInnerContainer.appendChild(adoptionProcess);
+
+  const applyToAdopt = document.createElement('p');
+  applyToAdopt.className = 'preFade fadeIn';
+  applyToAdopt.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
+  applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='/adoption-app'>adoption application</a> now!`;
+  rightInnerContainer.appendChild(applyToAdopt);
 
   // Update the images
   const mainImage = document.createElement('img');
