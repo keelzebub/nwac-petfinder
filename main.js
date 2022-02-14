@@ -187,13 +187,13 @@ window.replaceShow = async (animal) => {
   const adoptionProcess = document.createElement('p');
   adoptionProcess.className = 'preFade fadeIn';
   adoptionProcess.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  adoptionProcess.innerHTML = `Learn more about Northwest Animal Companions' <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='/adoption-process'>adoption process here</a>.`;
+  adoptionProcess.innerHTML = `Learn more about Northwest Animal Companions' <a style='text-decoration: underline !important;' href='/adoption-process'>adoption process here</a>.`;
   rightInnerContainer.appendChild(adoptionProcess);
 
   const applyToAdopt = document.createElement('p');
   applyToAdopt.className = 'preFade fadeIn';
   applyToAdopt.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' target='_blank' rel='noopener noreferrer' href='/adoption-app'>adoption application</a> now!`;
+  applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' href='/adoption-app'>adoption application</a> now!`;
   rightInnerContainer.appendChild(applyToAdopt);
 
   // Update the images
