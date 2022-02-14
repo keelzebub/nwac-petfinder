@@ -124,7 +124,7 @@ window.replaceShow = async (animal) => {
   mainContainer.innerHTML = '';
 
   const leftContainer = document.createElement('div');
-  leftContainer.className = 'col sqs-col-6 span-6';
+  leftContainer.className = 'col sqs-col-6 span-6 preFade';
   leftContainer.style = 'float: none; padding: 0 17px;';
 
   const rightOuterContainer = document.createElement('div');
@@ -149,10 +149,11 @@ window.replaceShow = async (animal) => {
   getsAlongWith = getsAlongWith.length > 0 ? getsAlongWith.join(', ') : 'N/A';
 
   const name = document.createElement('h3');
-  name.className = 'preFade fadeIn';
+  name.className = 'preFade';
   name.style = 'margin-top: 0px;';
   name.innerText = animal.name;
   rightInnerContainer.appendChild(name);
+  name.className += ' fadeIn';
 
   let age = animal.age;
   if (age === 'Baby') {
@@ -173,10 +174,11 @@ window.replaceShow = async (animal) => {
   ];
 
   const details = document.createElement('p');
-  details.className = 'preFade fadeIn';
+  details.className = 'preFade';
   details.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   details.innerText = detailsContent.join("\n");
   rightInnerContainer.appendChild(details);
+  details.className += ' fadeIn';
 
   const description = document.createElement('p');
   description.className = 'preFade fadeIn';
@@ -185,19 +187,22 @@ window.replaceShow = async (animal) => {
   rightInnerContainer.appendChild(description);
 
   const adoptionProcess = document.createElement('p');
-  adoptionProcess.className = 'preFade fadeIn';
+  adoptionProcess.className = 'preFade';
   adoptionProcess.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   adoptionProcess.innerHTML = `Learn more about Northwest Animal Companions' <a style='text-decoration: underline !important;' href='/adoption-process'>adoption process here</a>.`;
   rightInnerContainer.appendChild(adoptionProcess);
+  adoptionProcess.className += ' fadeIn';
 
   const applyToAdopt = document.createElement('p');
-  applyToAdopt.className = 'preFade fadeIn';
+  applyToAdopt.className = 'preFade';
   applyToAdopt.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
   applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' href='/adoption-app'>adoption application</a> now!`;
   rightInnerContainer.appendChild(applyToAdopt);
+  applyToAdopt.className += ' fadeIn';
 
   // Update the images
   const mainImage = document.createElement('img');
+  mainImage.className = 'largeImages[0]';
   mainImage.src = largeImages[0];
   mainImage.alt = `${animal.name}`;
   mainImage.style = 'width: calc(100% - 34px);';
@@ -216,6 +221,8 @@ window.replaceShow = async (animal) => {
 
     imageGallery.appendChild(thumbnailButton);
   });
+
+  leftContainer.className += ' fadeIn';
 
   document.querySelector('style').textContent +=
     "@media screen and (max-width: 767px) { .custom-row { justify-content: flex-start !important; } }"
