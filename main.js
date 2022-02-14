@@ -46,7 +46,7 @@ window.loadAnimals = async (animalType, petfinderSecret) => {
 //
 // Load data for one animal
 //
-window.loadAnimal = async (petfinderId) => {
+window.loadAnimal = async (petfinderId, petfinderSecret) => {
   const tokenResponse = await fetch('https://api.petfinder.com/v2/oauth2/token', {
     method: 'POST',
     headers: {
