@@ -115,22 +115,16 @@ window.replaceShow = async (animal) => {
   });
 
   const mainContainer = document.getElementsByClassName('sqs-row')[0];
+  mainContainer.style = 'display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;'
+  mainContainer.className += ' custom-row';
 
   const leftContainer = document.createElement('div');
-  leftContainer.className = 'col sqs-col-6 span-6';
-  leftContainer.style = 'padding: 0 17px';
-
-  const middleContainer = document.createElement('div');
-  middleContainer.className = 'col sqs-col-1 span-1';
-  middleContainer.innerHTML = `
-    <div class="sqs-block spacer-block sqs-block-spacer sized vsize-1" data-block-type="21">
-      <div class="sqs-block-content">&nbsp;</div>
-    </div>
-  `;
+  leftContainer.className = 'col sqs-col-5 span-5';
+  leftContainer.style = 'float: none; padding: 0 17px;';
 
   const rightContainer = document.createElement('div');
   rightContainer.className = 'col sqs-col-5 span-5';
-  rightContainer.style = 'padding: 0 17px;';
+  rightContainer.style = 'float: none; padding: 0 17px;';
 
   mainContainer.appendChild(leftContainer);
   mainContainer.appendChild(middleContainer);
@@ -183,7 +177,7 @@ window.replaceShow = async (animal) => {
   const mainImage = document.createElement('img');
   mainImage.src = largeImages[0].replace(/600$/, '500');
   mainImage.alt = `${animal.name}`;
-  mainImage.style = 'width: 100%;';
+  mainImage.style = 'width: calc(100% - 34px);';
   leftContainer.appendChild(mainImage);
 
   const imageGallery = document.createElement('div');
@@ -199,4 +193,7 @@ window.replaceShow = async (animal) => {
 
     imageGallery.appendChild(thumbnailButton);
   });
+
+  document.querySelector('style').textContent +=
+    "@media screen and (max-width: 767px) { .custom-row { justify-content: flex-start !important; } }"
 };
