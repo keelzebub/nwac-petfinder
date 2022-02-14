@@ -14,8 +14,6 @@ const getQueryParams = () => {
   return queryParams;
 };
 
-alert('jere')
-
 //
 // Load all animal of a type
 //
