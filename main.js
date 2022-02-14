@@ -136,7 +136,7 @@ window.replaceShow = async (animal) => {
   }
   getsAlongWith = getsAlongWith.length > 0 ? getsAlongWith.join(', ') : 'N/A';
 
-  const name = documet.createElement('h3');
+  const name = document.createElement('h3');
   name.className = 'preFade fadeIn';
   name.innerText = animal.name;
   rightContainer.appendChild(name);
