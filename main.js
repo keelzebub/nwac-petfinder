@@ -77,8 +77,8 @@ window.loadAnimal = async (petfinderId, petfinderSecret) => {
 //
 window.replaceIndex = async (animals) => {
   const animalHtmlBlocks = animals.map((animal) => {
-    let age = animal.age === 'Baby' && animal.type === 'cat' ? 'Kitten' : animal.age;
-    age = animal.age === 'Baby' && animal.type === 'dog' ? 'Puppy' : age;
+    let age = animal.age === 'Baby' && animal.type === 'Cat' ? 'Kitten' : animal.age;
+    age = animal.age === 'Baby' && animal.type === 'Dog' ? 'Puppy' : age;
     return (
       `
         <a class='grid-item' href='/pets/show?petfinder_id=${animal.id}'>
@@ -154,11 +154,15 @@ window.replaceShow = async (animal) => {
   name.innerText = animal.name;
   rightInnerContainer.appendChild(name);
 
-  let age = animal.age === 'Baby' && animal.type === 'cat' ? 'Kitten' : animal.age;
-  age = animal.age === 'Baby' && animal.type === 'dog' ? 'Puppy' : age;
+  let age = animal.age;
+  if (age === 'Baby') {
+    age = animal.type === 'Cat' ? 'Kitten' : 'Puppy';
+  } else {
+    age += ` ${animal.type}`
+  }
 
   const detailsContent = [
-    `${age} ${animal.gender} ${animal.breeds.primary}`,
+    `${animal.gender} ${animal.breeds.primary} ${age}`,
     `Color: ${animal.colors.primary}${animal.colors.secondary ? ', ' + animal.colors.secondary : ''}`,
     `Coat length: ${animal.coat}`,
     `House-trained: ${animal.attributes.house_trained ? 'Yes' : 'No'}`,
