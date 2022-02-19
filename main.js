@@ -187,8 +187,9 @@ window.replaceShow = async (animal) => {
   rightInnerContainer.appendChild(adoptionProcess);
 
   const applyToAdopt = document.createElement('p');
+  const appLink = animal.type === 'Cat' ? '/cat-application' : '/dog-application';
   applyToAdopt.style = 'white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.4s; transition-delay: 0.266667s;'
-  applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' href='/adoption-app'>adoption application</a> now!`;
+  applyToAdopt.innerHTML = `To apply to adopt ${animal.name}, fill out an <a style='text-decoration: underline !important;' href='${appLink}'>adoption application</a> now!`;
   rightInnerContainer.appendChild(applyToAdopt);
 
   // Update the images
