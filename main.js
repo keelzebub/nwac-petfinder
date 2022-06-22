@@ -32,7 +32,7 @@ window.loadAnimals = async (animalType, petfinderSecret) => {
 
   const token = (await tokenResponse.json()).access_token;
 
-  const animalResponse = await fetch(`https://api.petfinder.com/v2/animals?type=${animalType}&organization=OR141&page=1`, {
+  const animalResponse = await fetch(`https://api.petfinder.com/v2/animals?type=${animalType}&organization=OR141&page=1&limit=100`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
