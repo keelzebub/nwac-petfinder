@@ -79,12 +79,13 @@ window.replaceIndex = async (animals) => {
   const animalHtmlBlocks = animals.map((animal) => {
     let age = animal.age === 'Baby' && animal.type === 'Cat' ? 'Kitten' : animal.age;
     age = animal.age === 'Baby' && animal.type === 'Dog' ? 'Puppy' : age;
+    let photo = animal.primary_photo_cropped ? animal.primary_photo_cropped.small : animal.photos[0].medium;
     return (
       `
         <a class='grid-item' href='/pets/show?petfinder_id=${animal.id}'>
           <div class='grid-image'>
             <div class='grid-image-inner-wrapper'>
-                <img data-src='${animal.primary_photo_cropped.small}' data-image='${animal.primary_photo_cropped.small}' data-image-dimensions='300x400' data-image-focal-point='0.5,0.5' alt='${animal.name}  |  ${age}' data-load='false' data-parent-ratio='1.0' class=' data-image-resolution='750w' src='${animal.primary_photo_cropped.small}' style='width: 100%; height: 100%; object-position: 50% 50%; object-fit: cover;' />
+                <img data-src='${photo}' data-image='${photo}' data-image-dimensions='300x400' data-image-focal-point='0.5,0.5' alt='${animal.name}  |  ${age}' data-load='false' data-parent-ratio='1.0' class=' data-image-resolution='750w' src='${photo}' style='width: 100%; height: 100%; object-position: 50% 50%; object-fit: cover;' />
             </div>
           </div>
           <div class='portfolio-text'>
