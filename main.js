@@ -210,7 +210,7 @@ window.replaceShow = async (animal) => {
     const thumbnailButton = document.createElement('button');
     thumbnailButton.style = 'background: transparent; border: none;';
     thumbnailButton.onclick = window.replaceMainPetImage.bind(null, mainImage, largeImages[index]);
-    thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}">`;
+    thumbnailButton.innerHTML = `<img data-id='${index}' src="${url}" height="100">`;
 
     imageGallery.appendChild(thumbnailButton);
   });
